@@ -1,0 +1,56 @@
+<section class="remember-modal" aria-labelledby="rememberUserTitle">
+  <header class="remember-modal__header">
+    <h2 id="rememberUserTitle">Recordar usuario</h2>
+
+    <button type="button" class="modal-close" aria-label="Cerrar modal" (click)="close()">
+      &times;
+    </button>
+  </header>
+
+  <p class="remember-modal__description">
+    Seleccione el tipo de documento e ingrese el numero de documento.
+  </p>
+
+  <form class="remember-modal__form" [formGroup]="rememberUserForm" (ngSubmit)="consultUser()">
+    <div class="remember-modal__fields">
+      <div class="form-field">
+        <label for="documentType" class="form-label">Tipo de documento</label>
+
+        <select id="documentType" class="form-select" formControlName="documentType">
+          <option value="">Seleccione una opcion</option>
+          <option value="CC">Cedula de ciudadania</option>
+          <option value="CE">Cedula de extranjeria</option>
+          <option value="TI">Tarjeta de identidad</option>
+          <option value="PA">Pasaporte</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="documentNumber" class="form-label">Numero de documento</label>
+
+        <input
+          id="documentNumber"
+          type="text"
+          class="form-control"
+          formControlName="documentNumber"
+          placeholder="Ingrese el numero de documento">
+      </div>
+    </div>
+
+    @if (resultMessage) {
+      <div class="remember-modal__result" role="status">
+        {{ resultMessage }}
+      </div>
+    }
+
+    <footer class="remember-modal__actions">
+      <button type="button" class="app-button app-button--outline" (click)="close()">
+        Cerrar
+      </button>
+
+      <button type="submit" class="app-button app-button--primary">
+        Consultar
+      </button>
+    </footer>
+  </form>
+</section>

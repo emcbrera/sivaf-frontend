@@ -182,21 +182,8 @@
 
 .btn-login {
   width: 100%;
-  height: 34px;
   margin-top: 1.35rem;
-  border: 0;
-  border-radius: 999px;
-  background: #0873dd;
-  color: #ffffff;
-  font: inherit;
-  font-size: 0.875rem;
-  cursor: pointer;
   font-family: "PoppinsR";
-}
-
-.btn-login:hover,
-.btn-login:focus-visible {
-  background: #0565c4;
 }
 
 .recover-text {
@@ -205,7 +192,7 @@
 }
 
 .recover-link {
-  color: #0873dd;
+  color: #006ED8;
   font-size: 0.875rem;
   text-decoration: none;
   font-family: "PoppinsR";
@@ -214,6 +201,25 @@
 .recover-link:hover,
 .recover-link:focus-visible {
   text-decoration: underline;
+}
+
+.btn-link-custom {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #006ED8;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-family: "PoppinsR";
+}
+
+.btn-link-custom:hover {
+  text-decoration: underline;
+}
+
+.btn-link-custom:focus {
+  outline: none;
 }
 
 .login-footer {
