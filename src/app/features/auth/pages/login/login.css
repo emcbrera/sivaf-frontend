@@ -1,0 +1,267 @@
+@font-face {
+  font-family: 'PoppinsR';
+  src: url('/assets/fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-SemiBold';
+  src: url('/assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-Medium';
+  src: url('/assets/fonts/Poppins-Medium.ttf') format('truetype');
+}
+
+:host {
+  display: block;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: 'Poppins', Arial, sans-serif;
+  color: #444756;
+}
+
+.login-page {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 62%) minmax(360px, 38%);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.login-visual {
+  height: 100dvh;
+  overflow: hidden;
+  background: #f3f7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.login-panel {
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 2.5vw, 4.5rem);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.login-form {
+  width: min(100%, 410px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-form__logo {
+  text-align: center;
+  margin-bottom: clamp(0.75rem, 2.5vh, 2.25rem);
+}
+
+.login-form__logo img {
+  width: 125px;
+  height: auto;
+}
+
+.login-form__header {
+  text-align: center;
+  margin-bottom: clamp(0.75rem, 2.5vh, 2.35rem);
+}
+
+.login-form__header h1 {
+  margin: 1.65rem 0 .65rem;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: #494B58;
+  font-family: "PoppinsR";
+}
+
+.login-form__header p {
+  margin: 0 auto;
+  max-width: 330px;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: #494B58;
+  font-family: "Poppins-Medium";
+}
+
+.login-form__body {
+  width: 100%;
+}
+
+.form-field {
+  margin-bottom: clamp(0.6rem, 1.5vh, 1.35rem);
+}
+
+.form-label {
+  display: block;
+  margin: 1rem 0 .45rem;
+  font-size: 0.875rem;
+  color: #494B58;
+  font-family: "Poppins-SemiBold";
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-control {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #dedfe6;
+  border-radius: 7px;
+  padding: .5rem 2.5rem .5rem 2.05rem;
+  background: #ffffff;
+  font: inherit;
+  font-size: 0.875rem;
+  color: #444756;
+  outline: none;
+  box-shadow: none;
+}
+
+.form-control::placeholder {
+  color: #626677;
+  opacity: 1;
+}
+
+.form-control:focus {
+  border-color: #0873dd;
+  box-shadow: 0 0 0 3px rgba(8, 115, 221, .11);
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: .7rem;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  pointer-events: none;
+  opacity: .85;
+}
+
+.input-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.suffix-btn {
+  position: absolute;
+  top: 50%;
+  right: .6rem;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #626677;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.suffix-btn:hover,
+.suffix-btn:focus-visible {
+  background: rgba(8, 115, 221, .08);
+}
+
+.btn-login {
+  width: 100%;
+  height: 34px;
+  margin-top: 1.35rem;
+  border: 0;
+  border-radius: 999px;
+  background: #0873dd;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: "PoppinsR";
+}
+
+.btn-login:hover,
+.btn-login:focus-visible {
+  background: #0565c4;
+}
+
+.recover-text {
+  margin: 1rem 0 0;
+  text-align: center;
+}
+
+.recover-link {
+  color: #0873dd;
+  font-size: 0.875rem;
+  text-decoration: none;
+  font-family: "PoppinsR";
+}
+
+.recover-link:hover,
+.recover-link:focus-visible {
+  text-decoration: underline;
+}
+
+.login-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .9rem;
+  margin-top: clamp(4rem, 2vh, 4.5rem);
+  padding-top: clamp(1rem, 3vh, 3rem);
+}
+
+.logo-unicamacho {
+  height: 40px;
+  width: auto;
+}
+
+.logo-smart {
+  height: 26px;
+  width: auto;
+}
+
+.footer-divider {
+  width: 1px;
+  height: 25px;
+  background: rgba(8, 115, 221, .16);
+}
+
+@media (max-width: 992px) {
+  .login-page {
+    grid-template-columns: minmax(0, 55%) minmax(340px, 45%);
+  }
+
+  .login-panel {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-page {
+    display: block;
+  }
+
+  .login-visual {
+    display: none;
+  }
+
+  .login-panel {
+    height: 100dvh;
+    padding: 1.5rem;
+  }
+}

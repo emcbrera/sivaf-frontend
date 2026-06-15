@@ -1,1 +1,76 @@
-<p>login works!</p>
+<main class="login-page" id="login">
+  <section class="login-visual" aria-label="Imagen institucional">
+    <img src="assets/images/imagen_login.png" alt="Escalafon">
+  </section>
+
+  <section class="login-panel">
+    <form class="login-form" novalidate>
+      <div class="login-form__logo">
+        <img src="assets/icons/logo.png" alt="Escalafon">
+      </div>
+
+      <header class="login-form__header">
+        <h1>Iniciar sesión</h1>
+        <p>Accede a la plataforma SIVAF UNICAMACHO</p>
+      </header>
+
+      <div class="login-form__body">
+        <div class="form-field">
+          <label for="login" class="form-label">Usuario</label>
+
+          <div class="input-wrapper">
+            <span class="input-icon" aria-hidden="true">
+              <img src="assets/icons/usuario.svg" alt="">
+            </span>
+
+            <input
+              id="login"
+              type="text"
+              class="form-control"
+              name="login"
+              placeholder="Ingrese su usuario academusoft">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="password" class="form-label">Contraseña</label>
+
+          <div class="input-wrapper">
+            <span class="input-icon" aria-hidden="true">
+              <img src="assets/icons/contraseña.svg" alt="">
+            </span>
+
+            <input
+              id="password"
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Ingrese su contraseña">
+
+            <button type="button" class="suffix-btn" aria-label="Mostrar contrasena">
+              <img src="assets/icons/ver.svg" alt="">
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login">
+          Iniciar sesion
+        </button>
+
+        <p class="recover-text">
+          <a href="#" class="recover-link">
+            ¿Olvidó su contraseña? Haga clic aquí para restablecerla
+          </a>
+        </p>
+      </div>
+
+      <footer class="login-footer" aria-label="Logos institucionales">
+        <img src="assets/images/LogoUnicamacho.svg" alt="Unicamacho" class="logo-unicamacho">
+
+        <span class="footer-divider"></span>
+
+        <img src="assets/images/LogoSmartCampus.svg" alt="Smart Campus" class="logo-smart">
+      </footer>
+    </form>
+  </section>
+</main>
