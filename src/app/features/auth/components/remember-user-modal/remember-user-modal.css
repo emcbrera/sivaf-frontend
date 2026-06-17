@@ -1,0 +1,144 @@
+@font-face {
+  font-family: 'PoppinsR';
+  src: url('/assets/fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-SemiBold';
+  src: url('/assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
+:host {
+  display: block;
+  font-family: 'PoppinsR';
+}
+
+.remember-modal {
+  width: 100%;
+  padding: 1.5rem;
+  background: #ffffff;
+  color: #494b58;
+}
+
+.remember-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: -1.5rem -1.5rem .75rem;
+  padding: 0.7rem 1.5rem;
+  background-color: #F9FAFD;
+}
+
+.remember-modal__header h2 {
+  margin: 0;
+  font-family: 'Poppins-SemiBold';
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #494B58;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #6b7280;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+  background: #f3f4f6;
+}
+
+.remember-modal__description {
+  margin: 0 0 1.25rem;
+  font-size: .875rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.remember-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.remember-modal__fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  margin-bottom: .5rem;
+  font-size: .875rem;
+  font-weight: 500;
+  color: #494b58;
+}
+
+.form-control,
+.form-select {
+  height: 42px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  padding-inline: .75rem;
+  font: inherit;
+  font-size: .875rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #1570d8;
+  box-shadow: 0 0 0 .2rem rgba(21, 112, 216, .12);
+  outline: none;
+}
+
+.remember-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: .75rem;
+  margin-top: .5rem;
+}
+
+.remember-modal__result {
+  border: 1px solid #C2DBFD;
+  border-radius: 9px;
+  padding: .875rem 1rem;
+  background: #F0F6FD;
+  color: #494b58;
+  font-size: .875rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 575.98px) {
+  .remember-modal {
+    padding: 1.25rem;
+  }
+
+  .remember-modal__header {
+    margin: -1.25rem -1.25rem .75rem;
+    padding: 1.25rem;
+  }
+
+  .remember-modal__fields {
+    grid-template-columns: 1fr;
+  }
+
+  .remember-modal__actions {
+    flex-direction: column-reverse;
+  }
+
+  .remember-modal__actions .app-button {
+    width: 100%;
+  }
+}

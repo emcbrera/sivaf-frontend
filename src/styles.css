@@ -1,1 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+.remember-user-dialog .mat-mdc-dialog-container .mdc-dialog__surface {
+  border: 1px solid #006CD2;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/*Estilos globales botones*/
+.app-button {
+  min-width: 106px;
+  height: 38px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  font: inherit;
+  font-size: .875rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color .2s ease,
+    border-color .2s ease,
+    color .2s ease,
+    box-shadow .2s ease;
+}
+
+.app-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 110, 216, .18);
+}
+
+.app-button:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.app-button--primary {
+  border-color: #006ED8;
+  background: #006ED8;
+  color: #ffffff;
+}
+
+.app-button--primary:hover:not(:disabled),
+.app-button--primary:focus-visible {
+  border-color: #005fbb;
+  background: #005fbb;
+  color: #ffffff;
+}
+
+.app-button--outline {
+  border-color: #006ED8;
+  background: #ffffff;
+  color: #006ED8;
+}
+
+.app-button--outline:hover:not(:disabled),
+.app-button--outline:focus-visible {
+  background: rgba(0, 110, 216, .08);
+  color: #006ED8;
+}
+
+/*--------------------------------------------------*/
