@@ -186,6 +186,27 @@
   font-family: "PoppinsR";
 }
 
+.login-message {
+  margin-top: 1rem;
+  border-radius: 9px;
+  padding: .75rem .875rem;
+  font-family: "PoppinsR";
+  font-size: .875rem;
+  line-height: 1.4;
+}
+
+.login-message--success {
+  border: 1px solid #C2DBFD;
+  background: #F0F6FD;
+  color: #145a9e;
+}
+
+.login-message--error {
+  border: 1px solid #f3b7b7;
+  background: #fff1f1;
+  color: #a12a2a;
+}
+
 .recover-text {
   margin: 1rem 0 0;
   text-align: center;
