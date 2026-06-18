@@ -1,0 +1,18 @@
+<aside class="sidebar-container">
+  <div class="brand-header" aria-label="SIVAF">
+    <img src="assets/icons/logo.png" alt="SIVAF" class="brand-logo" />
+  </div>
+
+  <nav class="sidebar-menu" aria-label="Menu principal">
+    <a
+      *ngFor="let item of filteredMenuItems"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="sidebar-link"
+    >
+      <img [src]="item.icon" [alt]="item.label" class="sidebar-icon" />
+      <span class="sidebar-text">{{ item.label }}</span>
+    </a>
+  </nav>
+</aside>
