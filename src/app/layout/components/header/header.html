@@ -1,1 +1,29 @@
-<p>header works!</p>
+<header class="app-header">
+  <div class="app-header__left">
+    <button
+      type="button"
+      class="app-header__menu-button"
+      aria-label="Abrir o cerrar menu lateral"
+      aria-controls="app-sidebar"
+      [attr.aria-expanded]="isSidebarOpen"
+      (click)="onToggleMenuSidebar()">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <div class="app-header__brand" aria-label="Logos institucionales">
+      <img
+        src="assets/images/logo_uniajc.svg"
+        alt="Logo Institucion Universitaria Antonio Jose Camacho"
+        class="app-header__logo app-header__logo--ajc" />
+
+      <span class="app-header__divider" aria-hidden="true"></span>
+
+      <img
+        src="assets/images/logo_smart_campus.svg"
+        alt="Logo Smart Campus"
+        class="app-header__logo app-header__logo--smart" />
+    </div>
+  </div>
+</header>
