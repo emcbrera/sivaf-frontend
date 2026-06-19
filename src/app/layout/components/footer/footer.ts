@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
-export class Footer {}
+export class Footer {
+  @HostBinding('class') classes: string = 'main-footer';
+  public currentYear = new Date().getFullYear().toString();
+}

@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'PoppinsR';
+  src: url('/assets/fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+* {
+  font-family: "PoppinsR";
+  margin: 0;
+  font-size: 14px;
+  color: #494B58;
+}
+
+:host {
+  display: block;
+}
