@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { RememberUserModal } from '../../components/remember-user-modal/remember-user-modal';
 
 type UserRole = 'estudiante' | 'administrador';
@@ -41,6 +42,7 @@ export class Login {
   constructor(
     private readonly dialog: MatDialog,
     private readonly formBuilder: FormBuilder,
+    private readonly router: Router,
   ) {
     this.loginForm = this.formBuilder.nonNullable.group({
       username: ['', Validators.required],
@@ -80,6 +82,10 @@ export class Login {
       `Bienvenido ${user.fullName}. Rol: ${user.role}.`,
       'success',
     );
+
+    if (user.role === 'estudiante') {
+      void this.router.navigate(['/photo-upload']);
+    }
   }
 
   openRememberUserModal(): void {
