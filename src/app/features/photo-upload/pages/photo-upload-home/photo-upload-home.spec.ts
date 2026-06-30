@@ -1,19 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
 
-import { Login } from './login';
+import { PhotoUploadHome } from './photo-upload-home';
 
-describe('Login', () => {
-  let component: Login;
-  let fixture: ComponentFixture<Login>;
+describe('PhotoUploadHome', () => {
+  let component: PhotoUploadHome;
+  let fixture: ComponentFixture<PhotoUploadHome>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Login],
-      providers: [provideRouter([])],
+      imports: [PhotoUploadHome],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Login);
+    fixture = TestBed.createComponent(PhotoUploadHome);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

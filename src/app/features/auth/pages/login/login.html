@@ -4,7 +4,7 @@
   </section>
 
   <section class="login-panel">
-    <form class="login-form" novalidate>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
       <div class="login-form__logo">
         <img src="assets/icons/logo.png" alt="Escalafon">
       </div>
@@ -23,7 +23,7 @@
               <img src="assets/icons/usuario.svg" alt="">
             </span>
 
-            <input id="login" type="text" class="form-control" name="login"
+            <input id="login" type="text" class="form-control" formControlName="username"
               placeholder="Ingrese su usuario academusoft">
           </div>
         </div>
@@ -36,7 +36,7 @@
               <img src="assets/icons/contraseña.svg" alt="">
             </span>
 
-            <input id="password" type="password" class="form-control" name="password"
+            <input id="password" type="password" class="form-control" formControlName="password"
               placeholder="Ingrese su contraseña">
 
             <button type="button" class="suffix-btn" aria-label="Mostrar contrasena">
@@ -48,6 +48,16 @@
         <button type="submit" class="app-button app-button--primary btn-login">
           Iniciar sesion
         </button>
+
+        @if (loginMessage) {
+          <div
+            class="login-message"
+            [class.login-message--success]="loginMessageType === 'success'"
+            [class.login-message--error]="loginMessageType === 'error'">
+            {{ loginMessage }}
+          </div>
+        }
+
         <div class="recover-text">
           <button
             type="button"
