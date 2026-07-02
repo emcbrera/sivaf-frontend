@@ -1,0 +1,218 @@
+@font-face {
+  font-family: 'PoppinsR';
+  src: url('/assets/fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-SemiBold';
+  src: url('/assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-Medium';
+  src: url('/assets/fonts/Poppins-Medium.ttf') format('truetype');
+}
+
+:host {
+  display: block;
+  font-family: 'PoppinsR', Arial, sans-serif;
+  color: #494b58;
+}
+
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ── Cuadrados / tarjetas (Bg del diseño XD) ── */
+.photo-upload__card {
+  background: #ffffff;
+  box-shadow: 0 1px 5px rgba(21, 34, 50, 0.08); /* #15223214 del XD */
+  border-radius: 8px;
+  opacity: 1;
+}
+
+/* Fila superior: 2 tarjetas lado a lado */
+.photo-upload__hero {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.photo-upload__card--register,
+.photo-upload__card--gallery {
+  min-height: 210px;
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.photo-upload__card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.photo-upload__illustration {
+  flex-shrink: 0;
+  width: min(180px, 35%);
+  height: auto;
+}
+
+/* Tipografía */
+.photo-upload__title {
+  margin: 0 0 0.75rem;
+  font-family: 'Poppins-SemiBold', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #152232;
+  line-height: 1.3;
+}
+
+.photo-upload__title strong {
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.photo-upload__subtitle {
+  margin: 0 0 0.75rem;
+  font-family: 'Poppins-SemiBold', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #152232;
+}
+
+.photo-upload__text {
+  margin: 0 0 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #494b58;
+  max-width: 42ch;
+}
+
+.photo-upload__link {
+  font-family: 'Poppins-Medium', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #006ed8;
+  text-decoration: none;
+}
+
+.photo-upload__link:hover {
+  text-decoration: underline;
+}
+
+/* Historial */
+.photo-upload__section-header {
+  margin-bottom: 1rem;
+}
+
+.photo-upload__section-title {
+  margin: 0;
+  font-family: 'Poppins-SemiBold', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #152232;
+}
+
+.photo-upload__section-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: #7a7d8c;
+}
+
+.photo-upload__card--empty {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.photo-upload__empty-icon {
+  width: 120px;
+  height: auto;
+}
+
+.photo-upload__empty-text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #7a7d8c;
+}
+
+/* Sección informativa inferior */
+.photo-upload__info-title {
+  margin: 0 0 1.25rem;
+  font-family: 'Poppins-SemiBold', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #152232;
+}
+
+.photo-upload__info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.photo-upload__card--info {
+  padding: 1.5rem;
+}
+
+.photo-upload__info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.photo-upload__info-header img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.photo-upload__info-header h3 {
+  margin: 0;
+  font-family: 'Poppins-SemiBold', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #152232;
+  line-height: 1.3;
+}
+
+.photo-upload__card--info p {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: #494b58;
+}
+
+.photo-upload__card--info .photo-upload__link {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .photo-upload__hero,
+  .photo-upload__info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-upload__card--register,
+  .photo-upload__card--gallery {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .photo-upload__illustration {
+    width: 160px;
+    align-self: center;
+  }
+}

@@ -1,1 +1,102 @@
-<p>esto me toca</p>
+<section class="photo-upload">
+  <!-- Fila superior: 2 tarjetas -->
+  <div class="photo-upload__hero">
+    <article class="photo-upload__card photo-upload__card--register">
+      <div class="photo-upload__card-content">
+        <h1 class="photo-upload__title">
+          ¡Registra tu <strong>imagen</strong>!
+        </h1>
+        <p class="photo-upload__text">
+          Tu foto será utilizada para el proceso de reconocimiento facial,
+          facilitando el ingreso más rápido y seguro a la institución.
+        </p>
+        <button type="button" class="app-button app-button--primary">
+          Iniciar proceso
+        </button>
+      </div>
+      <img
+        class="photo-upload__illustration"
+        src="assets/ilustraciones/subir_fotografia.svg"
+        alt="Ilustración de registro facial"
+      />
+    </article>
+
+    <article class="photo-upload__card photo-upload__card--gallery">
+      <div class="photo-upload__card-content">
+        <h2 class="photo-upload__subtitle">Galería de fotos</h2>
+        <p class="photo-upload__text">
+          Consulta ejemplos de fotografías que cumplen con los requisitos
+          establecidos para el registro.
+        </p>
+        <a href="#" class="photo-upload__link">Ver ejemplos</a>
+      </div>
+      <img
+        class="photo-upload__illustration"
+        src="assets/ilustraciones/galeria_de_ejemplos.svg"
+        alt="Ilustración de galería de fotos"
+      />
+    </article>
+  </div>
+
+  <!-- Historial -->
+  <section class="photo-upload__history">
+    <header class="photo-upload__section-header">
+      <h2 class="photo-upload__section-title">Historial</h2>
+      <p class="photo-upload__section-subtitle">
+        Seguimiento del estado de tus registros
+      </p>
+    </header>
+
+    <article class="photo-upload__card photo-upload__card--empty">
+      <img
+        class="photo-upload__empty-icon"
+        src="assets/ilustraciones/no_hay_fotografias_registradas_.svg"
+        alt=""
+      />
+      <p class="photo-upload__empty-text">No hay fotografías registradas</p>
+    </article>
+  </section>
+
+  <!-- Información -->
+  <section class="photo-upload__info">
+    <h2 class="photo-upload__info-title">
+      ¿Por qué es importante registrar su fotografía?
+    </h2>
+
+    <div class="photo-upload__info-grid">
+      <article class="photo-upload__card photo-upload__card--info">
+        <div class="photo-upload__info-header">
+          <img src="assets/Iconos/ingreso_mas_agil.svg" alt="" />
+          <h3>Ingreso más ágil y seguro</h3>
+        </div>
+        <p>
+          Al registrar tu rostro, podrás ingresar a la institución mediante
+          validación facial, evitando filas y demoras en los puntos de acceso.
+        </p>
+      </article>
+
+      <article class="photo-upload__card photo-upload__card--info">
+        <div class="photo-upload__info-header">
+          <img src="assets/Iconos/validacion_de_identidad.svg" alt="" />
+          <h3>Validación de identidad</h3>
+        </div>
+        <p>
+          La fotografía permite verificar que quien accede es realmente la
+          persona autorizada, fortaleciendo la seguridad institucional.
+        </p>
+      </article>
+
+      <article class="photo-upload__card photo-upload__card--info">
+        <div class="photo-upload__info-header">
+          <img src="assets/Iconos/seguridad_para_la_comunidad.svg" alt="" />
+          <h3>Seguridad para toda la comunidad</h3>
+        </div>
+        <p>
+          Este proceso protege a estudiantes, docentes y personal, garantizando
+          un entorno seguro para todos.
+          <a href="#" class="photo-upload__link">Política de tratamiento de datos</a>
+        </p>
+      </article>
+    </div>
+  </section>
+</section>
