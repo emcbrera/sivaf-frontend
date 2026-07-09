@@ -1,12 +1,16 @@
-<section class="photo-upload">
-  <!-- Fila superior: 2 tarjetas -->
-  <div class="photo-upload__hero">
-    <article class="photo-upload__card photo-upload__card--register">
-      <div class="photo-upload__card-content">
-        <h1 class="photo-upload__title">
+<!-- Contenedor principal de la página Home / subir fotografía -->
+<section class="pagina-subir-foto">
+
+  <!-- Fila superior con las 2 tarjetas principales -->
+  <div class="fila-superior">
+
+    <!-- Tarjeta izquierda: invita a registrar la foto -->
+    <article class="tarjeta tarjeta-registro">
+      <div class="contenido-tarjeta">
+        <p class="titulo-principal">
           ¡Registra tu <strong>imagen</strong>!
-        </h1>
-        <p class="photo-upload__text">
+        </p>
+        <p class="texto-descripcion">
           Tu foto será utilizada para el proceso de reconocimiento facial,
           facilitando el ingreso más rápido y seguro a la institución.
         </p>
@@ -15,57 +19,60 @@
         </button>
       </div>
       <img
-        class="photo-upload__illustration"
+        class="ilustracion"
         src="assets/ilustraciones/subir_fotografia.svg"
         alt="Ilustración de registro facial"
       />
     </article>
 
-    <article class="photo-upload__card photo-upload__card--gallery">
-      <div class="photo-upload__card-content">
-        <h2 class="photo-upload__subtitle">Galería de fotos</h2>
-        <p class="photo-upload__text">
+    <!-- Tarjeta derecha: enlace a la galería de ejemplos -->
+    <article class="tarjeta tarjeta-galeria">
+      <div class="contenido-tarjeta">
+        <h2 class="titulo-seccion">Galería de fotos</h2>
+        <p class="texto-descripcion">
           Consulta ejemplos de fotografías que cumplen con los requisitos
           establecidos para el registro.
         </p>
-        <a href="#" class="photo-upload__link">Ver ejemplos</a>
+        <a href="#" class="enlace-accion">Ver ejemplos</a>
       </div>
       <img
-        class="photo-upload__illustration"
+        class="ilustracion"
         src="assets/ilustraciones/galeria_de_ejemplos.svg"
         alt="Ilustración de galería de fotos"
       />
     </article>
   </div>
 
-  <!-- Historial -->
-  <section class="photo-upload__history">
-    <header class="photo-upload__section-header">
-      <h2 class="photo-upload__section-title">Historial</h2>
-      <p class="photo-upload__section-subtitle">
+  <!-- Bloque del historial de fotos subidas -->
+  <section class="seccion-historial">
+    <header class="encabezado-seccion">
+      <h2 class="titulo-seccion">Historial</h2>
+      <p class="subtitulo-seccion">
         Seguimiento del estado de tus registros
       </p>
     </header>
 
-    <article class="photo-upload__card photo-upload__card--empty">
+    <!-- Tarjeta vacía cuando no hay fotos registradas -->
+    <article class="tarjeta tarjeta-vacia">
       <img
-        class="photo-upload__empty-icon"
+        class="icono-vacio"
         src="assets/ilustraciones/no_hay_fotografias_registradas_.svg"
         alt=""
       />
-      <p class="photo-upload__empty-text">No hay fotografías registradas</p>
+      <p class="mensaje-vacio">No hay fotografías registradas</p>
     </article>
   </section>
 
-  <!-- Información -->
-  <section class="photo-upload__info">
-    <h2 class="photo-upload__info-title">
+  <!-- Bloque informativo: por qué registrar la fotografía -->
+  <section class="seccion-informacion">
+    <h2 class="titulo-informacion">
       ¿Por qué es importante registrar su fotografía?
     </h2>
 
-    <div class="photo-upload__info-grid">
-      <article class="photo-upload__card photo-upload__card--info">
-        <div class="photo-upload__info-header">
+    <!-- Grilla de 3 tarjetas informativas -->
+    <div class="grilla-informacion">
+      <article class="tarjeta tarjeta-informacion">
+        <div class="encabezado-informacion">
           <img src="assets/Iconos/ingreso_mas_agil.svg" alt="" />
           <h3>Ingreso más ágil y seguro</h3>
         </div>
@@ -75,8 +82,8 @@
         </p>
       </article>
 
-      <article class="photo-upload__card photo-upload__card--info">
-        <div class="photo-upload__info-header">
+      <article class="tarjeta tarjeta-informacion">
+        <div class="encabezado-informacion">
           <img src="assets/Iconos/validacion_de_identidad.svg" alt="" />
           <h3>Validación de identidad</h3>
         </div>
@@ -86,15 +93,15 @@
         </p>
       </article>
 
-      <article class="photo-upload__card photo-upload__card--info">
-        <div class="photo-upload__info-header">
+      <article class="tarjeta tarjeta-informacion">
+        <div class="encabezado-informacion">
           <img src="assets/Iconos/seguridad_para_la_comunidad.svg" alt="" />
           <h3>Seguridad para toda la comunidad</h3>
         </div>
         <p>
           Este proceso protege a estudiantes, docentes y personal, garantizando
           un entorno seguro para todos.
-          <a href="#" class="photo-upload__link">Política de tratamiento de datos</a>
+          <a href="#" class="enlace-accion">Política de tratamiento de datos</a>
         </p>
       </article>
     </div>

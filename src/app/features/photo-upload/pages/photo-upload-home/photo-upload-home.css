@@ -1,6 +1,14 @@
+/* ============================================================
+   FUENTES — Tipografías usadas en esta página
+   ============================================================ */
 @font-face {
   font-family: 'PoppinsR';
   src: url('/assets/fonts/Poppins-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-Medium';
+  src: url('/assets/fonts/Poppins-Medium.ttf') format('truetype');
 }
 
 @font-face {
@@ -9,39 +17,54 @@
 }
 
 @font-face {
-  font-family: 'Poppins-Medium';
-  src: url('/assets/fonts/Poppins-Medium.ttf') format('truetype');
+  font-family: 'Poppins-Bold';
+  src: url('/assets/fonts/Poppins-Bold.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Poppins-ExtraBold';
+  src: url('/assets/fonts/Poppins-ExtraBold.ttf') format('truetype');
+}
+
+/* Contenedor raíz del componente Angular */
 :host {
   display: block;
   font-family: 'PoppinsR', Arial, sans-serif;
   color: #494b58;
 }
 
-.photo-upload {
+/* ============================================================
+   PÁGINA — Contenedor general de toda la vista Home
+   ============================================================ */
+.pagina-subir-foto {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-/* ── Cuadrados / tarjetas (Bg del diseño XD) ── */
-.photo-upload__card {
+/* ============================================================
+   TARJETA — Cuadrado blanco base (estilo del diseño XD)
+   Se reutiliza en registro, galería, historial e información
+   ============================================================ */
+.tarjeta {
   background: #ffffff;
-  box-shadow: 0 1px 5px rgba(21, 34, 50, 0.08); /* #15223214 del XD */
+  box-shadow: 0 1px 5px rgba(21, 34, 50, 0.08); /* sombra suave del XD */
   border-radius: 8px;
   opacity: 1;
 }
 
-/* Fila superior: 2 tarjetas lado a lado */
-.photo-upload__hero {
+/* ============================================================
+   FILA SUPERIOR — Las 2 tarjetas de arriba (registro + galería)
+   ============================================================ */
+.fila-superior {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.5rem;
 }
 
-.photo-upload__card--register,
-.photo-upload__card--gallery {
+/* Tarjeta "¡Registra tu imagen!" e "Galería de fotos" */
+.tarjeta-registro,
+.tarjeta-galeria {
   min-height: 210px;
   padding: 1.75rem 2rem;
   display: flex;
@@ -50,49 +73,90 @@
   gap: 1.5rem;
 }
 
-.photo-upload__card-content {
+/* Columna izquierda de texto dentro de una tarjeta */
+.contenido-tarjeta {
   flex: 1;
   min-width: 0;
 }
 
-.photo-upload__illustration {
-  flex-shrink: 0;
-  width: min(180px, 35%);
-  height: auto;
+/* Imagen decorativa a la derecha de las tarjetas superiores */
+.ilustracion {
+  /* Layout Properties */
+top: 135px;
+left: 711px;
+width: 187px;
+height: 164px;
+/* UI Properties */
+opacity: 1;
 }
 
-/* Tipografía */
-.photo-upload__title {
+/* ============================================================
+   TEXTOS — Títulos, párrafos y enlaces
+
+   IMPORTANTE sobre fuentes:
+   En Adobe XD sale "Poppins", pero aquí cada peso tiene
+   un nombre distinto. Si escribes solo "Poppins", el navegador
+   NO la encuentra y usa otra fuente (por eso se ven distintas).
+
+   Nombres correctos en este proyecto:
+   - PoppinsR         → Regular (400)
+   - Poppins-Medium   → Medium (500)
+   - Poppins-SemiBold → SemiBold (600)
+   - Poppins-Bold     → Bold (700)
+   - Poppins-ExtraBold→ ExtraBold (800)
+   ============================================================ */
+
+/* Título grande: "¡Registra tu imagen!" */
+.titulo-principal {
   margin: 0 0 0.75rem;
+  text-align: left;
   font-family: 'Poppins-SemiBold', sans-serif;
-  font-size: 1.5rem;
+  font-size: 20px;
   font-weight: 600;
-  color: #152232;
-  line-height: 1.3;
-}
-
-.photo-upload__title strong {
-  font-family: inherit;
-  font-weight: 700;
-}
-
-.photo-upload__subtitle {
-  margin: 0 0 0.75rem;
-  font-family: 'Poppins-SemiBold', sans-serif;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #152232;
-}
-
-.photo-upload__text {
-  margin: 0 0 1.25rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
+  line-height: 35px;
+  letter-spacing: 0;
   color: #494b58;
-  max-width: 42ch;
 }
 
-.photo-upload__link {
+/* La palabra "imagen" más gruesa (ExtraBold del diseño) */
+.titulo-principal strong {
+  font-family: 'Poppins-ExtraBold', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 35px;
+  letter-spacing: 0;
+  color: #494b58;
+}
+
+/* Títulos de sección: "Galería de fotos", "Historial", etc. */
+.titulo-seccion {
+  margin: 0 0 0.75rem;
+  text-align: left;
+  font-family: 'Poppins-SemiBold', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 35px;
+  letter-spacing: 0;
+  color: #494b58;
+  opacity: 1;
+}
+
+/* Párrafos descriptivos debajo de los títulos */
+.texto-descripcion {
+  margin: 0 0 1.25rem;
+  text-align: left;
+  font-family: 'PoppinsR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: #313c47;
+  opacity: 1;
+  max-width: 452px;
+}
+
+/* Enlaces azules: "Ver ejemplos", "Política de tratamiento de datos" */
+.enlace-accion {
   font-family: 'Poppins-Medium', sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
@@ -100,52 +164,89 @@
   text-decoration: none;
 }
 
-.photo-upload__link:hover {
+.enlace-accion:hover {
   text-decoration: underline;
 }
 
-/* Historial */
-.photo-upload__section-header {
+/* ============================================================
+   HISTORIAL — Sección de seguimiento de registros
+   ============================================================ */
+
+/* Contenedor de la sección historial */
+.seccion-historial {
+  /* sin estilos extra; hereda el gap de .pagina-subir-foto */
+}
+
+/* Encabezado con título + subtítulo del historial */
+.encabezado-seccion {
   margin-bottom: 1rem;
 }
 
-.photo-upload__section-title {
-  margin: 0;
-  font-family: 'Poppins-SemiBold', sans-serif;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #152232;
-}
-
-.photo-upload__section-subtitle {
+/* Texto pequeño gris: "Seguimiento del estado de tus registros" */
+.subtitulo-seccion {
   margin: 0.25rem 0 0;
   font-size: 0.8125rem;
   color: #7a7d8c;
 }
 
-.photo-upload__card--empty {
-  min-height: 220px;
+/*
+  Tarjeta vacía del historial (valores del diseño  ):
+  - height: 324px
+  - fondo blanco + sombra suave
+  - el ícono y el texto van CENTRADOS (en el diseño salían top/left,
+    aquí lo hacemos con flex para que se adapte a cualquier ancho)
+*/
+.tarjeta-vacia {
+  width: 100%;
+  height: 324px;
+  background: #ffffff;
+  box-shadow: 0 1px 5px rgba(21, 34, 50, 0.08); /* #15223214 del XD */
+  border-radius: 8px;
+  opacity: 1;
+
+  /* Centra el contenido en horizontal y vertical */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
-.photo-upload__empty-icon {
-  width: 120px;
-  height: auto;
+/* Ícono de "sin fotografías" — tamaño del diseño XD (141 × 126) */
+.icono-vacio {
+  width: 141px;
+  height: 126px;
+  object-fit: contain;
+  opacity: 1;
 }
 
-.photo-upload__empty-text {
+/* Texto "No hay fotografías registradas" — tipografía del XD */
+.mensaje-vacio {
   margin: 0;
-  font-size: 0.875rem;
-  color: #7a7d8c;
+  width: auto;
+  text-align: center;
+  font-family: 'PoppinsR', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0;
+  color: #6e6e6e;
+  opacity: 1;
 }
 
-/* Sección informativa inferior */
-.photo-upload__info-title {
+/* ============================================================
+   INFORMACIÓN — Sección "¿Por qué es importante...?"
+   ============================================================ */
+
+/* Contenedor de la sección informativa inferior */
+.seccion-informacion {
+  /* sin estilos extra */
+}
+
+/* Título de la sección informativa */
+.titulo-informacion {
   margin: 0 0 1.25rem;
   font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 1.125rem;
@@ -153,30 +254,33 @@
   color: #152232;
 }
 
-.photo-upload__info-grid {
+/* Grilla de 3 columnas con las tarjetas informativas */
+.grilla-informacion {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
 }
 
-.photo-upload__card--info {
+/* Cada tarjeta informativa individual */
+.tarjeta-informacion {
   padding: 1.5rem;
 }
 
-.photo-upload__info-header {
+/* Fila con ícono + título dentro de cada tarjeta informativa */
+.encabezado-informacion {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
 
-.photo-upload__info-header img {
+.encabezado-informacion img {
   width: 32px;
   height: 32px;
   flex-shrink: 0;
 }
 
-.photo-upload__info-header h3 {
+.encabezado-informacion h3 {
   margin: 0;
   font-family: 'Poppins-SemiBold', sans-serif;
   font-size: 0.9375rem;
@@ -185,33 +289,39 @@
   line-height: 1.3;
 }
 
-.photo-upload__card--info p {
+/* Párrafo descriptivo dentro de las tarjetas informativas */
+.tarjeta-informacion p {
   margin: 0;
   font-size: 0.8125rem;
   line-height: 1.55;
   color: #494b58;
 }
 
-.photo-upload__card--info .photo-upload__link {
+/* Enlace dentro del párrafo de la tercera tarjeta */
+.tarjeta-informacion .enlace-accion {
   display: inline-block;
   margin-top: 0.5rem;
 }
 
-/* Responsive */
+/* ============================================================
+   RESPONSIVE — Adaptación en pantallas pequeñas
+   ============================================================ */
 @media (max-width: 1024px) {
-  .photo-upload__hero,
-  .photo-upload__info-grid {
+  /* Las grillas pasan de varias columnas a una sola */
+  .fila-superior,
+  .grilla-informacion {
     grid-template-columns: 1fr;
   }
 
-  .photo-upload__card--register,
-  .photo-upload__card--gallery {
+  /* Las tarjetas superiores apilan texto e ilustración */
+  .tarjeta-registro,
+  .tarjeta-galeria {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
   }
 
-  .photo-upload__illustration {
+  .ilustracion {
     width: 160px;
     align-self: center;
   }
