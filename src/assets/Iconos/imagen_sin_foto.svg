@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #d6def2;
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <circle class="cls-1" cx="11.81" cy="12.2" r="11.34"/>
+    </clipPath>
+  </defs>
+  <path id="Trazado_86339" data-name="Trazado 86339" class="cls-3" d="M11.81.86c6.26,0,11.34,5.08,11.34,11.34s-5.08,11.34-11.34,11.34S.47,18.47.47,12.2,5.54.86,11.81.86Z"/>
+  <g class="cls-4">
+    <g id="Enmascarar_grupo_22" data-name="Enmascarar grupo 22">
+      <circle id="Elipse_14" data-name="Elipse 14" class="cls-2" cx="11.81" cy="25.31" r="10.84"/>
+      <path id="Trazado_86338" data-name="Trazado 86338" class="cls-2" d="M11.81,3.63c2.51,0,4.54,2.03,4.54,4.54s-2.03,4.54-4.54,4.54-4.54-2.03-4.54-4.54,2.03-4.54,4.54-4.54Z"/>
+    </g>
+  </g>
+</svg>
