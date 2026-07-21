@@ -139,6 +139,17 @@
   box-shadow: 0 0 0 3px rgba(8, 115, 221, .11);
 }
 
+.form-control[aria-invalid='true'] {
+  border-color: #c83b3b;
+}
+
+.field-error {
+  margin: .4rem 0 0;
+  color: #a12a2a;
+  font-family: "PoppinsR";
+  font-size: .75rem;
+}
+
 .input-icon {
   position: absolute;
   top: 50%;
@@ -184,6 +195,11 @@
   width: 100%;
   margin-top: 1.35rem;
   font-family: "PoppinsR";
+}
+
+.btn-login:disabled {
+  cursor: not-allowed;
+  opacity: .65;
 }
 
 .login-message {

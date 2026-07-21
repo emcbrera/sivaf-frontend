@@ -1,8 +1,12 @@
 import { Routes } from '@angular/router';
+import { authGuard, authMatchGuard } from './core/guards/auth.guard';
+import {
+  academicRoleGuard,
+  academicRoleMatchGuard,
+} from './core/guards/role.guard';
 import { Login } from './features/auth/pages/login/login';
 import { RecoverPassword } from './features/auth/pages/recover-password/recover-password';
 import { MainLayout } from './layout/pages/main-layout/main-layout';
-import { PhotoHistory } from './features/photo-history/pages/photo-history/photo-history';
 
 export const routes: Routes = [
   {
@@ -21,16 +25,17 @@ export const routes: Routes = [
   {
     path: '',
     component: MainLayout,
+    canMatch: [authMatchGuard],
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
-        path: 'photo-upload',
+        path: 'photo-upload-home',
+        canMatch: [academicRoleMatchGuard],
+        canActivate: [academicRoleGuard],
         loadComponent: () =>
           import('./features/photo-upload/pages/photo-upload-home/photo-upload-home')
-            .then(m => m.PhotoUploadHome)
-      },
-      {
-       path: 'photo-history',
-       component: PhotoHistory
+            .then((module) => module.PhotoUploadHome)
       }
     ]
   }
