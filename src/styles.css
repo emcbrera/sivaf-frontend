@@ -4,6 +4,11 @@
   overflow: hidden;
 }
 
+.photo-requirements-dialog .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 /*Estilos globales botones*/
 .app-button {
   min-width: 106px;
