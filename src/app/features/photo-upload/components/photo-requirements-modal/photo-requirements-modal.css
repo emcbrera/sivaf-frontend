@@ -1,0 +1,35 @@
+.modal-requisitos {
+  padding: 1.5rem;
+  font-family: 'PoppinsR', Arial, sans-serif;
+  color: #494b58;
+}
+
+.modal-requisitos__encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modal-requisitos__encabezado h2 {
+  margin: 0;
+  font-family: 'Poppins-SemiBold', sans-serif;
+  font-size: 1.125rem;
+  color: #152232;
+}
+
+.modal-requisitos__cerrar {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #494b58;
+}
+
+.modal-requisitos__texto {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}

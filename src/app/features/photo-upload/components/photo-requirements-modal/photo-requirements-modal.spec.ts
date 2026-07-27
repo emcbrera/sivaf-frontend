@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PhotoHistory } from './photo-history';
+import { PhotoRequirementsModal } from './photo-requirements-modal';
 
-describe('PhotoHistory', () => {
-  let component: PhotoHistory;
-  let fixture: ComponentFixture<PhotoHistory>;
+describe('PhotoRequirementsModal', () => {
+  let component: PhotoRequirementsModal;
+  let fixture: ComponentFixture<PhotoRequirementsModal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PhotoHistory],
+      imports: [PhotoRequirementsModal],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PhotoHistory);
+    fixture = TestBed.createComponent(PhotoRequirementsModal);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

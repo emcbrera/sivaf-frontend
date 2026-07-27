@@ -3,13 +3,33 @@
   src: url('/assets/fonts/Poppins-Regular.ttf') format('truetype');
 }
 
-* {
-  font-family: "PoppinsR";
-  margin: 0;
-  font-size: 14px;
-  color: #494B58;
+.parrafo1 .parrafo2	 {
+top: 1039px;
+left: 430px;
+width: 464px;
+height: 18px;
+/* UI Properties */
+text-align: left;
+
+letter-spacing: 0px;
+color: #494B58;
+opacity: 1;
+font: 'PoppinsR', sans-serif;
 }
 
 :host {
   display: block;
+}
+.footerdiv {
+  /* Layout Properties */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+top: 1016px;
+left: 360px;
+width: 1200px;
+height: 41px;
+/* UI Properties */
+opacity: 1;
 }
