@@ -23,9 +23,20 @@
               <img src="assets/icons/usuario.svg" alt="">
             </span>
 
-            <input id="login" type="text" class="form-control" formControlName="username"
+            <input
+              id="login"
+              type="text"
+              class="form-control"
+              formControlName="user"
+              autocomplete="username"
+              [attr.aria-invalid]="loginForm.controls.user.invalid && loginForm.controls.user.touched"
+              aria-describedby="userError"
               placeholder="Ingrese su usuario academusoft">
           </div>
+
+          @if (loginForm.controls.user.hasError('required') && loginForm.controls.user.touched) {
+            <p id="userError" class="field-error">El usuario es obligatorio.</p>
+          }
         </div>
 
         <div class="form-field">
@@ -36,25 +47,45 @@
               <img src="assets/icons/contraseña.svg" alt="">
             </span>
 
-            <input id="password" type="password" class="form-control" formControlName="password"
+            <input
+              id="password"
+              [type]="passwordVisible() ? 'text' : 'password'"
+              class="form-control"
+              formControlName="password"
+              autocomplete="current-password"
+              [attr.aria-invalid]="loginForm.controls.password.invalid && loginForm.controls.password.touched"
+              aria-describedby="passwordError"
               placeholder="Ingrese su contraseña">
 
-            <button type="button" class="suffix-btn" aria-label="Mostrar contrasena">
+            <button
+              type="button"
+              class="suffix-btn"
+              [attr.aria-label]="passwordVisible() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+              (click)="togglePasswordVisibility()">
               <img src="assets/icons/ver.svg" alt="">
             </button>
           </div>
+
+          @if (loginForm.controls.password.hasError('required') && loginForm.controls.password.touched) {
+            <p id="passwordError" class="field-error">La contraseña es obligatoria.</p>
+          }
         </div>
 
-        <button type="submit" class="app-button app-button--primary btn-login">
-          Iniciar sesion
+        <button
+          type="submit"
+          class="app-button app-button--primary btn-login"
+          [disabled]="facade.isLoading()">
+          {{ facade.isLoading() ? 'Iniciando sesión...' : 'Iniciar sesión' }}
         </button>
 
-        @if (loginMessage) {
+        @if (facade.feedback(); as feedback) {
           <div
             class="login-message"
-            [class.login-message--success]="loginMessageType === 'success'"
-            [class.login-message--error]="loginMessageType === 'error'">
-            {{ loginMessage }}
+            [class.login-message--success]="feedback.type === 'success'"
+            [class.login-message--error]="feedback.type === 'error'"
+            role="alert"
+            aria-live="assertive">
+            {{ feedback.message }}
           </div>
         }
 
@@ -66,8 +97,9 @@
             ¿Olvidó su usuario? Haga clic aquí para recordarlo
           </button>
         </div>
+
         <p class="recover-text">
-          <a href="recover-password" class="recover-link">
+          <a routerLink="/recover-password" class="recover-link">
             ¿Olvidó su contraseña? Haga clic aquí para restablecerla
           </a>
         </p>

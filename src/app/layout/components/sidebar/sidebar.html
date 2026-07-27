@@ -5,7 +5,7 @@
 
   <nav class="sidebar-menu" aria-label="Menu principal">
     <a
-      *ngFor="let item of filteredMenuItems"
+      *ngFor="let item of menuItems"
       [routerLink]="item.route"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
