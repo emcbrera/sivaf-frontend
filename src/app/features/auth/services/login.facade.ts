@@ -66,10 +66,12 @@ export class LoginFacade {
       )
       .subscribe({
         next: (response) => {
-          const roles: RoleIdentity[] = response.roles.map((role) => ({
-            type: role.vrolTipo,
-            name: role.vrolNombre,
-          }));
+          const roles: RoleIdentity[] = response.roles.map(
+            (role) => ({
+              type: role.vrolTipo,
+              name: role.vrolNombre,
+            }),
+          );
 
           if (!hasRoleAccess(roles, ACADEMIC_ACCESS_ROLES)) {
             this.feedbackState.set({
@@ -79,7 +81,13 @@ export class LoginFacade {
             return;
           }
 
-          this.session.start(response.TokenInterno, roles);
+          const displayName = this.buildDisplayName(response);
+
+          this.session.start(response.TokenInterno, roles, {
+            firstName: response.primernombre.trim(),
+            displayName,
+            email: response.email,
+          });
 
           this.feedbackState.set({
             type: 'success',
@@ -92,6 +100,23 @@ export class LoginFacade {
           this.feedbackState.set(this.mapError(error));
         },
       });
+  }
+
+  private buildDisplayName(user: {
+    primernombre: string;
+    segundonombre: string | null;
+    primerapellido: string;
+    segundoapellido: string | null;
+  }): string {
+    return [
+      user.primernombre,
+      user.segundonombre,
+      user.primerapellido,
+      user.segundoapellido,
+    ]
+      .map((namePart) => namePart?.trim() ?? '')
+      .filter((namePart) => namePart.length > 0)
+      .join(' ');
   }
 
   private getDestination(): string {

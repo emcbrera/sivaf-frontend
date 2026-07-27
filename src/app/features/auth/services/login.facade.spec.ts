@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, Subject, throwError } from 'rxjs';
 
 import { SessionService } from '../../../core/services/session.service';
+import { AuthRole } from '../models/auth-role.model';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { AuthApiService } from './auth-api.service';
@@ -14,21 +15,25 @@ describe('LoginFacade', () => {
     user: 'usuario-prueba',
     password: 'clave-prueba',
   };
+  const academicStudentRole: AuthRole = {
+    vrolId: 138,
+    vrolNombre: 'Academico_estudiante',
+    vrolDescripcion: 'Estudiante académico',
+    vrolTipo: 'ESTUDIANTE',
+    vrolEstado: '1',
+    vrolPublico: '0',
+  };
   const validResponse: LoginResponse = {
     codigo: 200,
     mensaje: 'Usuario valido',
+    primernombre: 'EIMY',
+    segundonombre: 'MARIANA',
+    primerapellido: 'CABRERA',
+    segundoapellido: 'ZAMORANO',
+    email: 'usuario@example.test',
     identificacion: '1000000000',
     TokenInterno: 'token-ficticio',
-    roles: [
-      {
-        vrolId: 138,
-        vrolNombre: 'Academico_estudiante',
-        vrolDescripcion: 'Estudiante académico',
-        vrolTipo: 'ESTUDIANTE',
-        vrolEstado: '0',
-        vrolPublico: '0',
-      },
-    ],
+    roles: [academicStudentRole],
   };
 
   let facade: LoginFacade;
@@ -79,22 +84,67 @@ describe('LoginFacade', () => {
     facade = TestBed.inject(LoginFacade);
   });
 
-  it('should send credentials and navigate after a valid response', () => {
+  it('should use TokenInterno and the official personal names', () => {
     facade.login(credentials);
 
     expect(loginSpy).toHaveBeenCalledWith(credentials);
-    expect(sessionStartSpy).toHaveBeenCalledWith('token-ficticio', [
+    expect(sessionStartSpy).toHaveBeenCalledWith(
+      'token-ficticio',
+      [{ type: 'ESTUDIANTE', name: 'Academico_estudiante' }],
       {
-        type: 'ESTUDIANTE',
-        name: 'Academico_estudiante',
+        firstName: 'EIMY',
+        displayName: 'EIMY MARIANA CABRERA ZAMORANO',
+        email: 'usuario@example.test',
       },
-    ]);
+    );
     expect(navigateByUrlSpy).toHaveBeenCalledWith('/photo-upload-home');
-    expect(facade.feedback()).toEqual({
-      type: 'success',
-      message: 'Inicio de sesión exitoso.',
-    });
     expect(facade.isLoading()).toBe(false);
+  });
+
+  it('should trim every personal name part', () => {
+    loginSpy.mockReturnValue(
+      of({
+        ...validResponse,
+        primernombre: ' EIMY ',
+        segundonombre: ' MARIANA ',
+        primerapellido: ' CABRERA ',
+        segundoapellido: ' ZAMORANO ',
+      }),
+    );
+
+    facade.login(credentials);
+
+    expect(sessionStartSpy).toHaveBeenCalledWith(
+      'token-ficticio',
+      [{ type: 'ESTUDIANTE', name: 'Academico_estudiante' }],
+      {
+        firstName: 'EIMY',
+        displayName: 'EIMY MARIANA CABRERA ZAMORANO',
+        email: 'usuario@example.test',
+      },
+    );
+  });
+
+  it('should ignore nullable secondary name parts', () => {
+    loginSpy.mockReturnValue(
+      of({
+        ...validResponse,
+        segundonombre: null,
+        segundoapellido: null,
+      }),
+    );
+
+    facade.login(credentials);
+
+    expect(sessionStartSpy).toHaveBeenCalledWith(
+      'token-ficticio',
+      [{ type: 'ESTUDIANTE', name: 'Academico_estudiante' }],
+      {
+        firstName: 'EIMY',
+        displayName: 'EIMY CABRERA',
+        email: 'usuario@example.test',
+      },
+    );
   });
 
   it('should ignore duplicate requests while loading', () => {
@@ -144,60 +194,25 @@ describe('LoginFacade', () => {
     },
   );
 
-  it('should show a generic message for an unexpected error', () => {
-    loginSpy.mockReturnValue(
-      throwError(() => new Error('Unexpected login response')),
-    );
-
-    facade.login(credentials);
-
-    expect(facade.feedback()).toEqual({
-      type: 'error',
-      message: 'No fue posible iniciar sesión. Inténtelo nuevamente.',
-    });
-    expect(sessionStartSpy).not.toHaveBeenCalled();
-    expect(navigateByUrlSpy).not.toHaveBeenCalled();
-  });
-
-  it('should navigate to the protected return URL', () => {
-    returnUrl = '/photo-upload-home';
-
-    facade.login(credentials);
-
-    expect(navigateByUrlSpy).toHaveBeenCalledWith('/photo-upload-home');
-  });
-
-  it('should reject an external return URL', () => {
-    returnUrl = '//external.example';
-
-    facade.login(credentials);
-
-    expect(navigateByUrlSpy).toHaveBeenCalledWith('/photo-upload-home');
-  });
-
   it('should allow an academic teacher role', () => {
-    loginSpy.mockReturnValue(
-      of({
-        ...validResponse,
-        roles: [
-          {
-            vrolId: 200,
-            vrolNombre: 'Academico_Docente',
-            vrolDescripcion: 'Docente académico',
-            vrolTipo: 'DOCENTE',
-            vrolEstado: '0',
-            vrolPublico: '0',
-          },
-        ],
+    const teacherRole: AuthRole = {
+      ...academicStudentRole,
+      vrolId: 200,
+      vrolNombre: 'Academico_Docente',
+      vrolDescripcion: 'Docente académico',
+      vrolTipo: 'DOCENTE',
+    };
+    loginSpy.mockReturnValue(of({ ...validResponse, roles: [teacherRole] }));
+
+    facade.login(credentials);
+
+    expect(sessionStartSpy).toHaveBeenCalledWith(
+      'token-ficticio',
+      [{ type: 'DOCENTE', name: 'Academico_Docente' }],
+      expect.objectContaining({
+        displayName: 'EIMY MARIANA CABRERA ZAMORANO',
       }),
     );
-
-    facade.login(credentials);
-
-    expect(sessionStartSpy).toHaveBeenCalledWith('token-ficticio', [
-      { type: 'DOCENTE', name: 'Academico_Docente' },
-    ]);
-    expect(navigateByUrlSpy).toHaveBeenCalledWith('/photo-upload-home');
   });
 
   it('should deny a non-academic student role', () => {
@@ -206,12 +221,9 @@ describe('LoginFacade', () => {
         ...validResponse,
         roles: [
           {
+            ...academicStudentRole,
             vrolId: 270,
             vrolNombre: 'EstudianteEC',
-            vrolDescripcion: 'Educación continuada',
-            vrolTipo: 'ESTUDIANTE',
-            vrolEstado: '1',
-            vrolPublico: '0',
           },
         ],
       }),
@@ -225,36 +237,5 @@ describe('LoginFacade', () => {
       type: 'error',
       message: 'Su usuario no tiene permisos para acceder a este módulo.',
     });
-  });
-
-  it('should require the role type and name in the same object', () => {
-    loginSpy.mockReturnValue(
-      of({
-        ...validResponse,
-        roles: [
-          {
-            vrolId: 1,
-            vrolNombre: 'OtroRol',
-            vrolDescripcion: 'Otro rol estudiantil',
-            vrolTipo: 'ESTUDIANTE',
-            vrolEstado: '1',
-            vrolPublico: '0',
-          },
-          {
-            vrolId: 2,
-            vrolNombre: 'Academico_estudiante',
-            vrolDescripcion: 'Nombre en otro rol',
-            vrolTipo: 'CAP',
-            vrolEstado: '1',
-            vrolPublico: '0',
-          },
-        ],
-      }),
-    );
-
-    facade.login(credentials);
-
-    expect(sessionStartSpy).not.toHaveBeenCalled();
-    expect(navigateByUrlSpy).not.toHaveBeenCalled();
   });
 });

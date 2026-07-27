@@ -26,4 +26,50 @@
         class="app-header__logo app-header__logo--smart" />
     </div>
   </div>
+
+  <div class="app-header__profile">
+    <button
+      type="button"
+      class="profile-trigger"
+      aria-label="Abrir menú del usuario"
+      aria-controls="userProfileMenu"
+      [attr.aria-expanded]="isProfileMenuOpen()"
+      (click)="toggleProfileMenu()">
+      {{ userInitial }}
+    </button>
+
+    @if (isProfileMenuOpen()) {
+      <section
+        id="userProfileMenu"
+        class="profile-menu"
+        aria-label="Información del usuario">
+        <div class="profile-menu__identity">
+          <strong>{{ userDisplayName }}</strong>
+          <span>{{ user?.email || 'Correo no disponible' }}</span>
+        </div>
+
+        <button
+          type="button"
+          class="profile-menu__logout"
+          [disabled]="isLoggingOut"
+          [attr.aria-busy]="isLoggingOut"
+          (click)="requestLogout()">
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            aria-hidden="true">
+            <path
+              d="M10 5H6.75A1.75 1.75 0 0 0 5 6.75v10.5C5 18.22 5.78 19 6.75 19H10M14.5 8.5 18 12l-3.5 3.5M9 12h9"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.7" />
+          </svg>
+          <span>{{ isLoggingOut ? 'Cerrando sesión...' : 'Cerrar sesión' }}</span>
+        </button>
+      </section>
+    }
+  </div>
 </header>

@@ -19,6 +19,7 @@ describe('authInterceptor', () => {
   const apiBaseUrl = 'http://api.example.test/api/v1';
   const protectedUrl = `${apiBaseUrl}/photos/`;
   const loginUrl = `${apiBaseUrl}/auth/login/`;
+  const logoutUrl = `${apiBaseUrl}/auth/logout/`;
   const fakeToken = 'token-ficticio';
   const tokenState = signal<string | null>(null);
 
@@ -101,6 +102,39 @@ describe('authInterceptor', () => {
 
     expect(request.request.headers.has('Authorization')).toBe(false);
     request.flush({});
+  });
+
+  it('should add the bearer token to the logout request', () => {
+    tokenState.set(fakeToken);
+
+    http.post(logoutUrl, null).subscribe();
+
+    const request = httpTesting.expectOne(logoutUrl);
+
+    expect(request.request.headers.get('Authorization')).toBe(
+      `Bearer ${fakeToken}`,
+    );
+    request.flush({ detail: 'Sesión cerrada correctamente.' });
+  });
+
+  it('should leave logout 401 handling to the logout facade', () => {
+    tokenState.set(fakeToken);
+    let receivedStatus: number | undefined;
+
+    http.post(logoutUrl, null).subscribe({
+      error: (error: { status: number }) => {
+        receivedStatus = error.status;
+      },
+    });
+
+    httpTesting.expectOne(logoutUrl).flush(
+      { detail: 'Token inválido.' },
+      { status: 401, statusText: 'Unauthorized' },
+    );
+
+    expect(clearSpy).not.toHaveBeenCalled();
+    expect(navigateSpy).not.toHaveBeenCalled();
+    expect(receivedStatus).toBe(401);
   });
 
   it('should not send the token to an external origin', () => {

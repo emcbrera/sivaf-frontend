@@ -9,7 +9,10 @@
     <app-header
       class="app-header"
       [isSidebarOpen]="isSidebarOpen"
-      (toggleMenuSidebar)="onToggleSidebar()">
+      [isLoggingOut]="isLoggingOut()"
+      [user]="headerUser()"
+      (toggleMenuSidebar)="onToggleSidebar()"
+      (logoutRequested)="onLogoutRequested()">
     </app-header>
 
     <main class="app-content">
