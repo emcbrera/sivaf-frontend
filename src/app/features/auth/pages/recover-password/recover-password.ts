@@ -26,8 +26,6 @@ export class RecoverPassword {
       return;
     }
 
-    // Más adelante aquí conectarás el servicio / API
-    const { usuario } = this.recoverForm.getRawValue();
-    console.log('Recuperar contraseña para:', usuario.trim());
+   
   }
 }
