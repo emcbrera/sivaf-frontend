@@ -8,11 +8,13 @@ import { TestBed } from '@angular/core/testing';
 import { API_BASE_URL } from '../../../core/config/api.config';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
+import { LogoutResponse } from '../models/logout-response.model';
 import { AuthApiService } from './auth-api.service';
 
 describe('AuthApiService', () => {
   const apiBaseUrl = 'http://api.example.test/api/v1';
   const loginUrl = `${apiBaseUrl}/auth/login/`;
+  const logoutUrl = `${apiBaseUrl}/auth/logout/`;
   const credentials: LoginRequest = {
     user: 'usuario-prueba',
     password: 'clave-prueba',
@@ -20,6 +22,11 @@ describe('AuthApiService', () => {
   const validResponse: LoginResponse = {
     codigo: 200,
     mensaje: 'Usuario valido',
+    primernombre: 'EIMY',
+    segundonombre: 'MARIANA',
+    primerapellido: 'CABRERA',
+    segundoapellido: 'ZAMORANO',
+    email: 'usuario@example.test',
     identificacion: '1000000000',
     TokenInterno: 'token-ficticio',
     roles: [
@@ -28,7 +35,7 @@ describe('AuthApiService', () => {
         vrolNombre: 'Academico_estudiante',
         vrolDescripcion: 'Estudiante académico',
         vrolTipo: 'ESTUDIANTE',
-        vrolEstado: '0',
+        vrolEstado: '1',
         vrolPublico: '0',
       },
     ],
@@ -57,18 +64,17 @@ describe('AuthApiService', () => {
     httpTesting.verify();
   });
 
-  it('should send the login credentials to the configured endpoint', () => {
+  it('should send credentials to the configured login endpoint', () => {
     service.login(credentials).subscribe();
 
     const request = httpTesting.expectOne(loginUrl);
 
     expect(request.request.method).toBe('POST');
     expect(request.request.body).toEqual(credentials);
-
     request.flush(validResponse);
   });
 
-  it('should return a valid login response', () => {
+  it('should accept the official flat response with personal names', () => {
     let result: LoginResponse | undefined;
 
     service.login(credentials).subscribe((response) => {
@@ -80,7 +86,24 @@ describe('AuthApiService', () => {
     expect(result).toEqual(validResponse);
   });
 
-  it('should reject an unexpected successful response', () => {
+  it('should accept nullable secondary names', () => {
+    let result: LoginResponse | undefined;
+    const responseWithNames: LoginResponse = {
+      ...validResponse,
+      segundonombre: null,
+      segundoapellido: null,
+    };
+
+    service.login(credentials).subscribe((response) => {
+      result = response;
+    });
+
+    httpTesting.expectOne(loginUrl).flush(responseWithNames);
+
+    expect(result).toEqual(responseWithNames);
+  });
+
+  it('should reject the incorrect nested response contract', () => {
     let receivedError: unknown;
 
     service.login(credentials).subscribe({
@@ -92,13 +115,13 @@ describe('AuthApiService', () => {
     httpTesting.expectOne(loginUrl).flush({
       codigo: 200,
       mensaje: 'Usuario valido',
-      identificacion: '1000000000',
+      valor: {},
     });
 
     expect(receivedError).toBeInstanceOf(Error);
   });
 
-  it('should reject a successful response without roles', () => {
+  it('should reject an empty internal token', () => {
     let receivedError: unknown;
 
     service.login(credentials).subscribe({
@@ -107,8 +130,43 @@ describe('AuthApiService', () => {
       },
     });
 
-    const { roles: _roles, ...responseWithoutRoles } = validResponse;
-    httpTesting.expectOne(loginUrl).flush(responseWithoutRoles);
+    httpTesting.expectOne(loginUrl).flush({
+      ...validResponse,
+      TokenInterno: '',
+    });
+
+    expect(receivedError).toBeInstanceOf(Error);
+  });
+
+  it('should reject a secondary name with an unexpected type', () => {
+    let receivedError: unknown;
+
+    service.login(credentials).subscribe({
+      error: (error: unknown) => {
+        receivedError = error;
+      },
+    });
+
+    httpTesting.expectOne(loginUrl).flush({
+      ...validResponse,
+      segundonombre: 123,
+    });
+
+    expect(receivedError).toBeInstanceOf(Error);
+  });
+
+  it('should reject a response without the required first name', () => {
+    let receivedError: unknown;
+    const { primernombre: _firstName, ...responseWithoutFirstName } =
+      validResponse;
+
+    service.login(credentials).subscribe({
+      error: (error: unknown) => {
+        receivedError = error;
+      },
+    });
+
+    httpTesting.expectOne(loginUrl).flush(responseWithoutFirstName);
 
     expect(receivedError).toBeInstanceOf(Error);
   });
@@ -141,12 +199,48 @@ describe('AuthApiService', () => {
 
     httpTesting.expectOne(loginUrl).flush(
       { detail: 'Credenciales inválidas.' },
-      {
-        status: 401,
-        statusText: 'Unauthorized',
-      },
+      { status: 401, statusText: 'Unauthorized' },
     );
 
     expect(receivedStatus).toBe(401);
+  });
+
+  it('should send a null body to the configured logout endpoint', () => {
+    service.logout().subscribe();
+
+    const request = httpTesting.expectOne(logoutUrl);
+
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toBeNull();
+    request.flush({ detail: 'Sesión cerrada correctamente.' });
+  });
+
+  it('should accept the official logout response', () => {
+    const validLogoutResponse: LogoutResponse = {
+      detail: 'Sesión cerrada correctamente.',
+    };
+    let result: LogoutResponse | undefined;
+
+    service.logout().subscribe((response) => {
+      result = response;
+    });
+
+    httpTesting.expectOne(logoutUrl).flush(validLogoutResponse);
+
+    expect(result).toEqual(validLogoutResponse);
+  });
+
+  it('should reject a malformed logout response', () => {
+    let receivedError: unknown;
+
+    service.logout().subscribe({
+      error: (error: unknown) => {
+        receivedError = error;
+      },
+    });
+
+    httpTesting.expectOne(logoutUrl).flush({ detail: '' });
+
+    expect(receivedError).toBeInstanceOf(Error);
   });
 });

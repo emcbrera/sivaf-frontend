@@ -3,9 +3,14 @@
   src: url('/assets/fonts/Poppins-Regular.ttf') format('truetype');
 }
 
+:host {
+  display: block;
+  height: 100%;
+}
+
 .sidebar-container {
   width: 255px;
-  min-height: 100vh;
+  height: 100%;
   background: #006CD2;
   display: flex;
   flex-direction: column;

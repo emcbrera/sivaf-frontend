@@ -20,6 +20,8 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
     request.url === apiBaseUrl || request.url.startsWith(`${apiBaseUrl}/`);
   const isLoginRequest =
     request.url === `${apiBaseUrl}${AUTH_API_PATHS.login}`;
+  const isLogoutRequest =
+    request.url === `${apiBaseUrl}${AUTH_API_PATHS.logout}`;
   const token = session.token();
 
   const authenticatedRequest =
@@ -38,6 +40,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
         error.status === 401 &&
         isApiRequest &&
         !isLoginRequest &&
+        !isLogoutRequest &&
         session.token() !== null;
 
       if (sessionWasRejected) {

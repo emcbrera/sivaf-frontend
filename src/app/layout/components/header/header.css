@@ -1,13 +1,27 @@
+@font-face {
+  font-family: "Poppins-Bold";
+  src: url('/assets/fonts/Poppins-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "PoppinsR";
+  src: url('/assets/fonts/Poppins-Regular.ttf') format('truetype');
+}
+
 :host {
   display: block;
   width: 100%;
 }
 
 .app-header {
+  position: relative;
+  z-index: 20;
   min-height: 64px;
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   background: #ffffff;
   border-bottom: 1px solid #e7edf5;
 }
@@ -84,6 +98,105 @@
   flex: 0 0 auto;
 }
 
+.app-header__profile {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.profile-trigger {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e4f0ff;
+  color: #006ed8;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-trigger:hover,
+.profile-trigger[aria-expanded='true'] {
+  background: #d5e8ff;
+}
+
+.profile-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 110, 216, 0.2);
+}
+
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  right: 0;
+  width: min(300px, calc(100vw - 2rem));
+  border: 1px solid #edf0f4;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  box-shadow: 0 1px 6px rgba(20, 39, 74, 0.035);
+  overflow: hidden;
+}
+
+.profile-menu__identity {
+  padding: 1rem 1.1rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.profile-menu__identity strong {
+  color: #494b58;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-family: "Poppins-Bold";
+}
+
+.profile-menu__identity span {
+  overflow: hidden;
+  color: #9aa2b1;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "PoppinsR";
+}
+
+.profile-menu__logout {
+  width: 100%;
+  min-height: 43px;
+  padding: 0.65rem 1.1rem;
+  border: 0;
+  border-top: 1px solid #e8ebf0;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #ffffff;
+  color: #494b58;
+  font: inherit;
+  font-size: 0.85rem;
+  font-family: "PoppinsR";
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.profile-menu__logout:hover {
+  background: #f7f9fc;
+  color: #006ed8;
+}
+
+.profile-menu__logout:focus-visible {
+  position: relative;
+  outline: 2px solid rgba(0, 110, 216, 0.35);
+  outline-offset: -2px;
+}
+
 @media (max-width: 768px) {
   .app-header {
     min-height: 58px;
@@ -96,6 +209,11 @@
 
   .app-header__logo--smart {
     height: 24px;
+  }
+
+  .profile-trigger {
+    width: 38px;
+    height: 38px;
   }
 }
 

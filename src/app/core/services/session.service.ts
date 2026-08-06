@@ -4,6 +4,7 @@ import {
   hasRoleAccess,
   RoleIdentity,
 } from '../config/role-access.config';
+import { SessionUserProfile } from '../models/session-user-profile.model';
 
 const SESSION_STORAGE_KEY = 'sivaf.auth.session';
 const LEGACY_TOKEN_STORAGE_KEY = 'sivaf.auth.token';
@@ -11,6 +12,7 @@ const LEGACY_TOKEN_STORAGE_KEY = 'sivaf.auth.token';
 interface StoredSession {
   token: string;
   roles: RoleIdentity[];
+  userProfile: SessionUserProfile;
 }
 
 @Injectable({
@@ -25,9 +27,16 @@ export class SessionService {
   readonly roles = computed<readonly RoleIdentity[]>(
     () => this.sessionState()?.roles ?? [],
   );
+  readonly userProfile = computed(
+    () => this.sessionState()?.userProfile ?? null,
+  );
   readonly isAuthenticated = computed(() => this.sessionState() !== null);
 
-  start(token: string, roles: readonly RoleIdentity[]): void {
+  start(
+    token: string,
+    roles: readonly RoleIdentity[],
+    userProfile: SessionUserProfile,
+  ): void {
     if (token.trim().length === 0) {
       throw new Error('Cannot start a session without a token');
     }
@@ -35,6 +44,7 @@ export class SessionService {
     const session: StoredSession = {
       token,
       roles: roles.map((role) => ({ ...role })),
+      userProfile: { ...userProfile },
     };
 
     this.sessionState.set(session);
@@ -104,7 +114,8 @@ export class SessionService {
       typeof candidate['token'] === 'string' &&
       candidate['token'].trim().length > 0 &&
       Array.isArray(candidate['roles']) &&
-      candidate['roles'].every((role: unknown) => this.isRoleIdentity(role))
+      candidate['roles'].every((role: unknown) => this.isRoleIdentity(role)) &&
+      this.isUserProfile(candidate['userProfile'])
     );
   }
 
@@ -120,6 +131,22 @@ export class SessionService {
       candidate['type'].length > 0 &&
       typeof candidate['name'] === 'string' &&
       candidate['name'].length > 0
+    );
+  }
+
+  private isUserProfile(value: unknown): value is SessionUserProfile {
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+      return false;
+    }
+
+    const candidate = value as Record<string, unknown>;
+
+    return (
+      typeof candidate['firstName'] === 'string' &&
+      candidate['firstName'].trim().length > 0 &&
+      typeof candidate['displayName'] === 'string' &&
+      candidate['displayName'].trim().length > 0 &&
+      typeof candidate['email'] === 'string'
     );
   }
 }
