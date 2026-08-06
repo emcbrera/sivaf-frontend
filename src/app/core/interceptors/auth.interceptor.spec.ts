@@ -20,6 +20,7 @@ describe('authInterceptor', () => {
   const protectedUrl = `${apiBaseUrl}/photos/`;
   const loginUrl = `${apiBaseUrl}/auth/login/`;
   const logoutUrl = `${apiBaseUrl}/auth/logout/`;
+  const passwordRecoveryUrl = `${apiBaseUrl}/auth/password-recovery/`;
   const fakeToken = 'token-ficticio';
   const tokenState = signal<string | null>(null);
 
@@ -102,6 +103,41 @@ describe('authInterceptor', () => {
 
     expect(request.request.headers.has('Authorization')).toBe(false);
     request.flush({});
+  });
+
+  it('should treat password recovery as a public request', () => {
+    tokenState.set(fakeToken);
+
+    http
+      .post(passwordRecoveryUrl, { username: 'usuario-prueba' })
+      .subscribe();
+
+    const request = httpTesting.expectOne(passwordRecoveryUrl);
+
+    expect(request.request.headers.has('Authorization')).toBe(false);
+    request.flush({ codigo: 200, mensaje: 'Solicitud recibida.' });
+  });
+
+  it('should not clear a session for a password recovery 401', () => {
+    tokenState.set(fakeToken);
+    let receivedStatus: number | undefined;
+
+    http
+      .post(passwordRecoveryUrl, { username: 'usuario-prueba' })
+      .subscribe({
+        error: (error: { status: number }) => {
+          receivedStatus = error.status;
+        },
+      });
+
+    httpTesting.expectOne(passwordRecoveryUrl).flush(null, {
+      status: 401,
+      statusText: 'Unauthorized',
+    });
+
+    expect(clearSpy).not.toHaveBeenCalled();
+    expect(navigateSpy).not.toHaveBeenCalled();
+    expect(receivedStatus).toBe(401);
   });
 
   it('should add the bearer token to the logout request', () => {

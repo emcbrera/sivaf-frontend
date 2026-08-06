@@ -7,6 +7,8 @@ import { AuthRole } from '../models/auth-role.model';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { LogoutResponse } from '../models/logout-response.model';
+import { PasswordRecoveryRequest } from '../models/password-recovery-request.model';
+import { PasswordRecoveryResponse } from '../models/password-recovery-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +30,49 @@ export class AuthApiService {
     return this.http
       .post<unknown>(`${this.apiBaseUrl}${AUTH_API_PATHS.logout}`, null)
       .pipe(map((response) => this.validateLogoutResponse(response)));
+  }
+
+  passwordRecovery(
+    request: PasswordRecoveryRequest,
+  ): Observable<PasswordRecoveryResponse> {
+    return this.http
+      .post<unknown>(
+        `${this.apiBaseUrl}${AUTH_API_PATHS.passwordRecovery}`,
+        request,
+      )
+      .pipe(
+        map((response) => this.validatePasswordRecoveryResponse(response)),
+      );
+  }
+
+  private validatePasswordRecoveryResponse(
+    response: unknown,
+  ): PasswordRecoveryResponse {
+    if (!this.isPasswordRecoveryResponse(response)) {
+      throw new Error('Unexpected password recovery response');
+    }
+
+    return response;
+  }
+
+  private isPasswordRecoveryResponse(
+    response: unknown,
+  ): response is PasswordRecoveryResponse {
+    if (
+      typeof response !== 'object' ||
+      response === null ||
+      Array.isArray(response)
+    ) {
+      return false;
+    }
+
+    const candidate = response as Record<string, unknown>;
+
+    return (
+      candidate['codigo'] === 200 &&
+      typeof candidate['mensaje'] === 'string' &&
+      candidate['mensaje'].trim().length > 0
+    );
   }
 
   private validateLogoutResponse(response: unknown): LogoutResponse {

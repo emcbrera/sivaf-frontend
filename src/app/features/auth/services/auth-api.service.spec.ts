@@ -9,15 +9,26 @@ import { API_BASE_URL } from '../../../core/config/api.config';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { LogoutResponse } from '../models/logout-response.model';
+import { PasswordRecoveryRequest } from '../models/password-recovery-request.model';
+import { PasswordRecoveryResponse } from '../models/password-recovery-response.model';
 import { AuthApiService } from './auth-api.service';
 
 describe('AuthApiService', () => {
   const apiBaseUrl = 'http://api.example.test/api/v1';
   const loginUrl = `${apiBaseUrl}/auth/login/`;
   const logoutUrl = `${apiBaseUrl}/auth/logout/`;
+  const passwordRecoveryUrl = `${apiBaseUrl}/auth/password-recovery/`;
   const credentials: LoginRequest = {
     user: 'usuario-prueba',
     password: 'clave-prueba',
+  };
+  const passwordRecoveryRequest: PasswordRecoveryRequest = {
+    username: 'usuario-prueba',
+  };
+  const validPasswordRecoveryResponse: PasswordRecoveryResponse = {
+    codigo: 200,
+    mensaje:
+      'Si el usuario existe y tiene un correo registrado, se enviarán las instrucciones para recuperar la contraseña.',
   };
   const validResponse: LoginResponse = {
     codigo: 200,
@@ -240,6 +251,66 @@ describe('AuthApiService', () => {
     });
 
     httpTesting.expectOne(logoutUrl).flush({ detail: '' });
+
+    expect(receivedError).toBeInstanceOf(Error);
+  });
+
+  it('should send the username to the password recovery endpoint', () => {
+    service.passwordRecovery(passwordRecoveryRequest).subscribe();
+
+    const request = httpTesting.expectOne(passwordRecoveryUrl);
+
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual(passwordRecoveryRequest);
+    request.flush(validPasswordRecoveryResponse);
+  });
+
+  it('should accept the official password recovery response', () => {
+    let result: PasswordRecoveryResponse | undefined;
+
+    service
+      .passwordRecovery(passwordRecoveryRequest)
+      .subscribe((response) => {
+        result = response;
+      });
+
+    httpTesting
+      .expectOne(passwordRecoveryUrl)
+      .flush(validPasswordRecoveryResponse);
+
+    expect(result).toEqual(validPasswordRecoveryResponse);
+  });
+
+  it('should reject a malformed password recovery response', () => {
+    let receivedError: unknown;
+
+    service.passwordRecovery(passwordRecoveryRequest).subscribe({
+      error: (error: unknown) => {
+        receivedError = error;
+      },
+    });
+
+    httpTesting.expectOne(passwordRecoveryUrl).flush({
+      codigo: 200,
+      mensaje: '',
+    });
+
+    expect(receivedError).toBeInstanceOf(Error);
+  });
+
+  it('should reject a password recovery response with another code', () => {
+    let receivedError: unknown;
+
+    service.passwordRecovery(passwordRecoveryRequest).subscribe({
+      error: (error: unknown) => {
+        receivedError = error;
+      },
+    });
+
+    httpTesting.expectOne(passwordRecoveryUrl).flush({
+      ...validPasswordRecoveryResponse,
+      codigo: 201,
+    });
 
     expect(receivedError).toBeInstanceOf(Error);
   });

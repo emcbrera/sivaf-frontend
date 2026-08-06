@@ -6,7 +6,11 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
-import { API_BASE_URL, AUTH_API_PATHS } from '../config/api.config';
+import {
+  API_BASE_URL,
+  AUTH_API_PATHS,
+  PUBLIC_AUTH_API_PATHS,
+} from '../config/api.config';
 import { SessionService } from '../services/session.service';
 
 const DEFAULT_PROTECTED_ROUTE = '/photo-upload-home';
@@ -18,14 +22,15 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
 
   const isApiRequest =
     request.url === apiBaseUrl || request.url.startsWith(`${apiBaseUrl}/`);
-  const isLoginRequest =
-    request.url === `${apiBaseUrl}${AUTH_API_PATHS.login}`;
+  const isPublicAuthRequest = PUBLIC_AUTH_API_PATHS.some(
+    (path) => request.url === `${apiBaseUrl}${path}`,
+  );
   const isLogoutRequest =
     request.url === `${apiBaseUrl}${AUTH_API_PATHS.logout}`;
   const token = session.token();
 
   const authenticatedRequest =
-    isApiRequest && !isLoginRequest && token
+    isApiRequest && !isPublicAuthRequest && token
       ? request.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`,
@@ -39,7 +44,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
         error instanceof HttpErrorResponse &&
         error.status === 401 &&
         isApiRequest &&
-        !isLoginRequest &&
+        !isPublicAuthRequest &&
         !isLogoutRequest &&
         session.token() !== null;
 
