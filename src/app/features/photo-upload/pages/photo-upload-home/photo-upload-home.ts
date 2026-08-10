@@ -14,7 +14,7 @@ export class PhotoUploadHome {
   /** Abre el modal de galería de ejemplos / requisitos de foto */
   abrirModalEjemplos(): void {
     this.dialog.open(PhotoRequirementsModal, {
-      width: '720px',
+      width: '960px',
       maxWidth: 'calc(100vw - 32px)',
       autoFocus: 'first-tabbable',
       restoreFocus: true,

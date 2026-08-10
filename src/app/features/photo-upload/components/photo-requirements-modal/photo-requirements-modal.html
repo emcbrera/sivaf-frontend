@@ -1,13 +1,36 @@
 <div class="modal-requisitos">
+  <!-- Encabezado con fondo gris claro: título, texto y botón cerrar -->
   <header class="modal-requisitos__encabezado">
-    <h2>Galería de ejemplos</h2>
-    <button type="button" class="modal-requisitos__cerrar" (click)="cerrar()" aria-label="Cerrar">
-      ×
-    </button>
+    <div class="modal-requisitos__titulo-fila">
+      <h2>Galería de ejemplos</h2>
+      <button
+        type="button"
+        class="modal-requisitos__cerrar"
+        (click)="cerrar()"
+        aria-label="Cerrar">
+        <img src="assets/Iconos/cerrar_.svg" alt="" />
+      </button>
+    </div>
+
+    <p class="modal-requisitos__texto">
+      Las siguientes imágenes ilustran ejemplos de fotografías válidas y no válidas.
+      Revisa cada caso y verifica que tu fotografía cumpla con los criterios establecidos.
+    </p>
   </header>
 
-  <p class="modal-requisitos__texto">
-    Aquí irá el contenido del modal de requisitos / ejemplos.
-  </p>
-  
+  <!-- Fila de requisitos (iconos) -->
+  <ul class="fila-requisitos" aria-label="Requisitos de la fotografía">
+    @for (requisito of requisitos; track requisito.texto) {
+      <li class="chip-requisito">
+        <img
+          class="chip-requisito__icono"
+          [src]="requisito.icono"
+          alt=""
+          aria-hidden="true" />
+        <span class="chip-requisito__texto">{{ requisito.texto }}</span>
+      </li>
+    }
+  </ul>
+
+  <!-- Aquí irá la sección de fotos (correctas / incorrectas) -->
 </div>
